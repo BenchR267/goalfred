@@ -37,7 +37,7 @@ type Item struct {
 	Subtitle     string      `json:"subtitle"`
 	Arg          string      `json:"arg,omitempty"`
 	Icon         string      `json:"icon,omitempty"`
-	Valid        bool        `json:"valid"`
+	Valid        bool        `json:"valid,omitempty"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
 	Type         string      `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
