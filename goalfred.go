@@ -1,4 +1,4 @@
-package main
+package goalfred
 
 import (
 	"encoding/json"
@@ -83,12 +83,11 @@ type ModContent struct {
 
 // NewItem creates a new Item with the given informations.
 // Set modifiers and other informations after calling this function.
-func NewItem(uid string, title string, subtitle string, arg string) *Item {
+func NewItem(title string, subtitle string, arg string) *Item {
 	item := new(Item)
 	item.Title = title
 	item.Subtitle = subtitle
 	item.Arg = arg
 	item.Valid = true
-	//item.Mod = new(ModElements)
 	return item
 }

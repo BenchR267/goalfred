@@ -4,7 +4,7 @@
 func main() {
 	res := NewResponse()
 
-	item := NewItem("abc", "abc", "abc", "abc")
+	item := NewItem("aTitle", "aSubtitle", "https://www.example.com")
 	item.Mod.Alt = NewModElement("https://www.google.de", "Open Google!")
 
 	res.AddItem(item)
