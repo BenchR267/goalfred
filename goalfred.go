@@ -37,7 +37,7 @@ type Item struct {
 	Subtitle     string      `json:"subtitle"`
 	Arg          string      `json:"arg,omitempty"`
 	Icon         string      `json:"icon,omitempty"`
-	Valid        bool        `json:"valid"`
+	Valid        bool        `json:"valid,omitempty"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
 	Type         string      `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
@@ -70,13 +70,12 @@ func NewModElement(arg string, subtitle string) *ModContent {
 	m := new(ModContent)
 	m.Arg = arg
 	m.Subtitle = subtitle
-	m.Valid = true
 	return m
 }
 
 // ModContent holds all informations about a modifier of an Item
 type ModContent struct {
-	Valid    bool   `json:"valid"`
+	Valid    bool   `json:"valid,omitempty"`
 	Arg      string `json:"arg,omitempty"`
 	Subtitle string `json:"subtitle,omitempty"`
 }
@@ -88,6 +87,5 @@ func NewItem(title string, subtitle string, arg string) *Item {
 	item.Title = title
 	item.Subtitle = subtitle
 	item.Arg = arg
-	item.Valid = true
 	return item
 }
