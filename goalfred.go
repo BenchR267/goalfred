@@ -36,7 +36,7 @@ type Item struct {
 	Title        string      `json:"title"`
 	Subtitle     string      `json:"subtitle"`
 	Arg          string      `json:"arg,omitempty"`
-	Icon         string      `json:"icon,omitempty"`
+	Icon         *Icon       `json:"icon,omitempty"`
 	Valid        bool        `json:"valid,omitempty"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
 	Type         string      `json:"type,omitempty"`
@@ -78,6 +78,12 @@ type ModContent struct {
 	Valid    bool   `json:"valid,omitempty"`
 	Arg      string `json:"arg,omitempty"`
 	Subtitle string `json:"subtitle,omitempty"`
+}
+
+// Icon holds all information about an item's icon
+type Icon struct {
+	Type string `json:"type,omitempty"`
+	Path string `json:"path,omitempty"`
 }
 
 // NewItem creates a new Item with the given informations.
