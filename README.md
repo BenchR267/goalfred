@@ -1,6 +1,34 @@
 # Usage
 
-```Go
+You can also provide your own types by implementing AlfredItem:
+
+
+
+
+# go-github #
+
+go-github is a Go client library for accessing the [GitHub API][].
+
+**Documentation:** [![GoDoc](https://godoc.org/github.com/BenchR267/goalfred?status.svg)](https://godoc.org/github.com/BenchR267/goalfred)  
+**Build Status:** [![Build Status](https://travis-ci.org/BenchR267/goalfred.svg?branch=master)](https://travis-ci.org/BenchR267/goalfred)  
+
+## Usage ##
+
+```go
+import "github.com/BenchR267/goalfred"
+```
+
+Create a new Response:
+
+```go
+res := NewResponse()
+```
+
+Construct your data like you want it to appear in the script filter output.
+You can then either use the given Item struct to add elements to the output or provide your custom types:
+
+Using Item:
+```go
 func main() {
 	res := NewResponse()
 
@@ -13,9 +41,8 @@ func main() {
 }
 ```
 
-You can also provide your own types by implementing AlfredItem:
-
-```Go
+Using a custom type like Link:
+```go
 type Link struct {
 	Name  string
 	Link1 string
@@ -38,3 +65,17 @@ func main() {
 	res.Print()
 }
 ```
+
+At the end you have to call the Print() function on the Response instance to print the elements to stdout:
+```go
+res.Print()
+```
+
+# Customization
+
+Each Item has many properties, most of them are optional. To get more information about them, take a look at the official documentation at Alfred: https://www.alfredapp.com/help/workflows/inputs/script-filter/json/
+
+## License ##
+
+This library is distributed under the BSD-style license found in the [LICENSE](./LICENSE)
+file.
