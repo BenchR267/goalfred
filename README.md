@@ -12,6 +12,12 @@ go-github is a Go client library for accessing the [GitHub API][].
 **Documentation:** [![GoDoc](https://godoc.org/github.com/BenchR267/goalfred?status.svg)](https://godoc.org/github.com/BenchR267/goalfred)  
 **Build Status:** [![Build Status](https://travis-ci.org/BenchR267/goalfred.svg?branch=master)](https://travis-ci.org/BenchR267/goalfred)  
 
+## Get ##
+
+```bash
+go get -u github.com/BenchR267/goalfred
+```
+
 ## Usage ##
 
 ```go
