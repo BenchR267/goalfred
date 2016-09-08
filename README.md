@@ -1,13 +1,6 @@
-# Usage
+# goalfred #
 
-You can also provide your own types by implementing AlfredItem:
-
-
-
-
-# go-github #
-
-go-github is a Go client library for accessing the [GitHub API][].
+goalfred is a helper package to create workflows for Alfredapp.
 
 **Documentation:** [![GoDoc](https://godoc.org/github.com/BenchR267/goalfred?status.svg)](https://godoc.org/github.com/BenchR267/goalfred)  
 **Build Status:** [![Build Status](https://travis-ci.org/BenchR267/goalfred.svg?branch=master)](https://travis-ci.org/BenchR267/goalfred)  
@@ -36,10 +29,10 @@ You can then either use the given Item struct to add elements to the output or p
 Using Item:
 ```go
 func main() {
-	res := NewResponse()
+	res := goalfred.NewResponse()
 
-	item := NewItem("aTitle", "aSubtitle", "https://www.example.com")
-	item.Mod.Alt = NewModElement("https://www.google.de", "Open Google!")
+	item := goalfred.NewItem("aTitle", "aSubtitle", "https://www.example.com")
+	item.Mod.Alt = goalfred.NewModElement("https://www.google.de", "Open Google!")
 
 	res.AddItem(item)
 
@@ -55,14 +48,14 @@ type Link struct {
 	Link2 string
 }
 
-func (l Link) Item() *Item {
+func (l Link) Item() *goalfred.Item {
 	item := NewItem(l.Name, l.Name, "", l.Link1)
 	item.Mod.Cmd = NewModElement(l.Link2, "Something special")
 	return &item
 }
 
 func main() {
-	res := NewResponse()
+	res := goalfred.NewResponse()
 
 	link := Link{Name: "Google", Link1: "https://www.google.com", Link2: "https://www.google.de/search?q=hello+world"}
 
