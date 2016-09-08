@@ -5,24 +5,32 @@ import (
 	"fmt"
 )
 
+// Response is the top level domain object.
+// Create a new instance by calling NewResponse()
+// Add items by calling AddItem on the response object
 type Response struct {
 	Items []Item `json:"items"`
 }
 
+// NewResponse initializes a new instance of Response
 func NewResponse() *Response {
 	return new(Response)
 }
 
+// AddItem adds a new Item to the response.
+// The order in Alfred will be in the order how you add them.
 func (r *Response) AddItem(item *Item) *Response {
 	r.Items = append(r.Items, *item)
 	return r
 }
 
+// Print should be called last to output the result of the workflow to stdout.
 func (r *Response) Print() {
 	bytes, _ := json.Marshal(r)
 	fmt.Println(string(bytes))
 }
 
+// Item stores informations about on item in the script filter
 type Item struct {
 	UID          string       `json:"uid,omitempty"`
 	Title        string       `json:"title"`
@@ -36,11 +44,15 @@ type Item struct {
 	Quicklook    string       `json:"quicklook,omitempty"`
 }
 
+// ModElements is a collection of the different modifiers for the item
+// Alt will be visible when holding the alt-key
+// Cmd will be visible when holding the cmd-key
 type ModElements struct {
 	Alt *ModContent `json:"alt,omitempty"`
 	Cmd *ModContent `json:"cmd,omitempty"`
 }
 
+// NewModElement returns an initialized ModContent to set to Alt or Cmd modifier of the Item
 func NewModElement(arg string, subtitle string) *ModContent {
 	m := new(ModContent)
 	m.Arg = arg
@@ -49,12 +61,15 @@ func NewModElement(arg string, subtitle string) *ModContent {
 	return m
 }
 
+// ModContent holds all informations about a modifier of an Item
 type ModContent struct {
 	Valid    bool   `json:"valid"`
 	Arg      string `json:"arg,omitempty"`
 	Subtitle string `json:"subtitle,omitempty"`
 }
 
+// NewItem creates a new Item with the given informations.
+// Set modifiers and other informations after calling this function.
 func NewItem(uid string, title string, subtitle string, arg string) *Item {
 	item := new(Item)
 	item.Title = title
