@@ -51,8 +51,8 @@ func NewModElement(arg string, subtitle string) *ModContent {
 
 type ModContent struct {
 	Valid    bool   `json:"valid"`
-	Arg      string `json:"arg"`
-	Subtitle string `json:"subtitle"`
+	Arg      string `json:"arg,omitempty"`
+	Subtitle string `json:"subtitle,omitempty"`
 }
 
 func NewItem(uid string, title string, subtitle string, arg string) *Item {
