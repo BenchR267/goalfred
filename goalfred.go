@@ -40,7 +40,7 @@ type Item struct {
 	Valid        bool        `json:"valid"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
 	Type         string      `json:"type,omitempty"`
-	Mod          ModElements `json:"mod,omitempty"`
+	Mod          ModElements `json:"mods,omitempty"`
 	Quicklook    string      `json:"quicklook,omitempty"`
 }
 
