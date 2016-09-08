@@ -76,5 +76,5 @@ Each Item has many properties, most of them are optional. To get more informatio
 
 ## License ##
 
-This library is distributed under the BSD-style license found in the [LICENSE](./LICENSE)
+This library is distributed under the MIT-style license found in the [LICENSE](./LICENSE)
 file.
