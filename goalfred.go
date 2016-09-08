@@ -1,4 +1,4 @@
-package goalfred
+package main
 
 import (
 	"encoding/json"
@@ -14,13 +14,8 @@ type Response struct {
 
 // NewResponse initializes a new instance of Response
 func NewResponse() *Response {
-	return new(Response)
-}
-
-// AddItem adds a new Item to the response.
-// The order in Alfred will be in the order how you add them.
-func (r *Response) AddItem(item *Item) *Response {
-	r.Items = append(r.Items, *item)
+	r := new(Response)
+	r.Items = []Item{}
 	return r
 }
 
@@ -30,18 +25,36 @@ func (r *Response) Print() {
 	fmt.Println(string(bytes))
 }
 
+// AlfredItem defines that a struct is convertible to an Item
+type AlfredItem interface {
+	Item() *Item
+}
+
 // Item stores informations about on item in the script filter
 type Item struct {
-	UID          string       `json:"uid,omitempty"`
-	Title        string       `json:"title"`
-	Subtitle     string       `json:"subtitle"`
-	Arg          string       `json:"arg,omitempty"`
-	Icon         string       `json:"icon,omitempty"`
-	Valid        bool         `json:"valid"`
-	Autocomplete string       `json:"autocomplete,omitempty"`
-	Type         string       `json:"type,omitempty"`
-	Mod          *ModElements `json:"mod,omitempty"`
-	Quicklook    string       `json:"quicklook,omitempty"`
+	UID          string      `json:"uid,omitempty"`
+	Title        string      `json:"title"`
+	Subtitle     string      `json:"subtitle"`
+	Arg          string      `json:"arg,omitempty"`
+	Icon         string      `json:"icon,omitempty"`
+	Valid        bool        `json:"valid"`
+	Autocomplete string      `json:"autocomplete,omitempty"`
+	Type         string      `json:"type,omitempty"`
+	Mod          ModElements `json:"mod,omitempty"`
+	Quicklook    string      `json:"quicklook,omitempty"`
+}
+
+// Item is an AlfredItem
+func (i Item) Item() *Item {
+	return &i
+}
+
+// AddItem adds a new Item to the response.
+// The order in Alfred will be in the order how you add them.
+func (r *Response) AddItem(item AlfredItem) *Response {
+	i := item.Item()
+	r.Items = append(r.Items, *i)
+	return r
 }
 
 // ModElements is a collection of the different modifiers for the item
@@ -76,6 +89,6 @@ func NewItem(uid string, title string, subtitle string, arg string) *Item {
 	item.Subtitle = subtitle
 	item.Arg = arg
 	item.Valid = true
-	item.Mod = new(ModElements)
+	//item.Mod = new(ModElements)
 	return item
 }
