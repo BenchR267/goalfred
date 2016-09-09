@@ -30,6 +30,14 @@ type AlfredItem interface {
 	Item() *Item
 }
 
+// ItemType describes the type of an Item
+type ItemType string
+
+// Could also be "default", but empty will be omitted to default, so it's the same
+NoItemType := ItemType("")
+FileItemType := ItemType("file")
+SkipCheckItemType := ItemType("file:skipcheck")
+
 // Item stores informations about on item in the script filter
 // A possible gotcha here is the `Valid` attribute, which is a pointer to a bool. This ensures it is whatever you set it and it gets included in the output if and only if you set it.
 type Item struct {
@@ -40,7 +48,7 @@ type Item struct {
 	Icon         *Icon       `json:"icon,omitempty"`
 	Valid        *bool       `json:"valid,omitempty"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
-	Type         string      `json:"type,omitempty"`
+	Type         ItemType      `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
 	Quicklook    string      `json:"quicklook,omitempty"`
 }
@@ -81,10 +89,21 @@ type ModContent struct {
 	Subtitle string `json:"subtitle,omitempty"`
 }
 
+// IconType describes the two possible values for the Type of an icon
+type IconType string
+
+// From https://www.alfredapp.com/help/workflows/inputs/script-filter/json/
+// By omitting the "type", Alfred will load the file path itself, for example a png. 
+// By using "type": "fileicon", Alfred will get the icon for the specified path. 
+// Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
+NoIconType := IconType("")
+FileIconType := IconType("fileicon")
+FileTypeIconType := IconType("filetype")
+
 // Icon holds all information about an item's icon
 type Icon struct {
-	Type string `json:"type,omitempty"`
-	Path string `json:"path,omitempty"`
+	Type IconType `json:"type,omitempty"`
+	Path string   `json:"path,omitempty"`
 }
 
 // NewItem creates a new Item with the given informations.
