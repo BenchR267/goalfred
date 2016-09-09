@@ -33,10 +33,14 @@ type AlfredItem interface {
 // ItemType describes the type of an Item
 type ItemType string
 
-// Could also be "default", but empty will be omitted to default, so it's the same
-NoItemType := ItemType("")
-FileItemType := ItemType("file")
-SkipCheckItemType := ItemType("file:skipcheck")
+// NoItemType is the default item type, you could also leave it in the zero value state
+var NoItemType ItemType
+
+// FileItemType makes Alfred treat your result as a file on your system
+var FileItemType ItemType = "file"
+
+// SkipCheckItemType makes Alfred skip this check as you are certain that the files you are returning exist
+var SkipCheckItemType ItemType = "file:skipcheck"
 
 // Item stores informations about on item in the script filter
 // A possible gotcha here is the `Valid` attribute, which is a pointer to a bool. This ensures it is whatever you set it and it gets included in the output if and only if you set it.
@@ -48,7 +52,7 @@ type Item struct {
 	Icon         *Icon       `json:"icon,omitempty"`
 	Valid        *bool       `json:"valid,omitempty"`
 	Autocomplete string      `json:"autocomplete,omitempty"`
-	Type         ItemType      `json:"type,omitempty"`
+	Type         ItemType    `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
 	Quicklook    string      `json:"quicklook,omitempty"`
 }
@@ -93,12 +97,18 @@ type ModContent struct {
 type IconType string
 
 // From https://www.alfredapp.com/help/workflows/inputs/script-filter/json/
-// By omitting the "type", Alfred will load the file path itself, for example a png. 
-// By using "type": "fileicon", Alfred will get the icon for the specified path. 
+// By omitting the "type", Alfred will load the file path itself, for example a png.
+// By using "type": "fileicon", Alfred will get the icon for the specified path.
 // Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
-NoIconType := IconType("")
-FileIconType := IconType("fileicon")
-FileTypeIconType := IconType("filetype")
+
+// NoIconType makes Alfred load the file path itself
+var NoIconType IconType
+
+// FileIconType makes Alfred get the icon for the specified path
+var FileIconType IconType = "fileicon"
+
+// FileTypeIconType makes Alfed get the icon of a specific file
+var FileTypeIconType IconType = "filetype"
 
 // Icon holds all information about an item's icon
 type Icon struct {
