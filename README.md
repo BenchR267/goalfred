@@ -31,8 +31,15 @@ Using Item:
 func main() {
 	res := goalfred.NewResponse()
 
-	item := goalfred.NewItem("aTitle", "aSubtitle", "https://www.example.com")
-	item.Mod.Alt = goalfred.NewModElement("https://www.google.de", "Open Google!")
+	item := goalfred.Item {
+			Title: "aTitle",
+			Subtitle: "aSubtitle",
+			Arg: "https://www.example.com",
+	}
+	item.Mod.Alt = goalfred.ModContent {
+			Arg: "https://www.google.de",
+			Subtitle: "Open Google!",
+  }
 
 	res.AddItem(item)
 
@@ -49,15 +56,26 @@ type Link struct {
 }
 
 func (l Link) Item() *goalfred.Item {
-	item := NewItem(l.Name, l.Name, "", l.Link1)
-	item.Mod.Cmd = NewModElement(l.Link2, "Something special")
+	item := goalfred.Item {
+			Title: l.Name,
+			Arg: l.Link1,
+	}
+
+	item.Mod.Cmd = goalfred.ModContent {
+			Arg: l.Link2,
+			Subtitle: "Something special!",
+  }
 	return &item
 }
 
 func main() {
 	res := goalfred.NewResponse()
 
-	link := Link{Name: "Google", Link1: "https://www.google.com", Link2: "https://www.google.de/search?q=hello+world"}
+	link := Link{
+		Name: "Google",
+		Link1: "https://www.google.com",
+		Link2: "https://www.google.de/search?q=hello+world",
+	}
 
 	res.AddItem(link)
 
