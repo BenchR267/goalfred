@@ -5,6 +5,12 @@ import (
 	"fmt"
 )
 
+// ComplexArg gives you the opportunity to set variables as well that you can use later
+type ComplexArg struct {
+	Arg       string            `json:"arg"`
+	Variables map[string]string `json:"variables"`
+}
+
 // Response is the top level domain object.
 // Create a new instance by calling NewResponse()
 // Add items by calling AddItem on the response object
@@ -55,6 +61,16 @@ type Item struct {
 	Type         ItemType    `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
 	Quicklook    string      `json:"quicklook,omitempty"`
+}
+
+// SetComplexArg sets the argument of the item to a more complex one that could contain variables as well
+func (i *Item) SetComplexArg(arg ComplexArg) {
+	b, err := json.Marshal(struct {
+		C ComplexArg `json:"alfredworkflow"`
+	}{C: arg})
+	if err == nil {
+		i.Arg = string(b)
+	}
 }
 
 // Item is an AlfredItem
@@ -114,14 +130,4 @@ var FileTypeIconType IconType = "filetype"
 type Icon struct {
 	Type IconType `json:"type,omitempty"`
 	Path string   `json:"path,omitempty"`
-}
-
-// NewItem creates a new Item with the given informations.
-// Set modifiers and other informations after calling this function.
-func NewItem(title string, subtitle string, arg string) *Item {
-	item := new(Item)
-	item.Title = title
-	item.Subtitle = subtitle
-	item.Arg = arg
-	return item
 }
