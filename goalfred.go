@@ -7,8 +7,8 @@ import (
 
 // ComplexArg gives you the opportunity to set variables as well that you can use later
 type ComplexArg struct {
-	Arg       string            `json:"arg"`
-	Variables map[string]string `json:"variables"`
+	Arg       string                 `json:"arg,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
 }
 
 // Response is the top level domain object.
@@ -63,14 +63,16 @@ type Item struct {
 	Quicklook    string      `json:"quicklook,omitempty"`
 }
 
+func (c ComplexArg) string() string {
+	b, _ := json.Marshal(struct {
+		C ComplexArg `json:"alfredworkflow"`
+	}{C: c})
+	return string(b)
+}
+
 // SetComplexArg sets the argument of the item to a more complex one that could contain variables as well
 func (i *Item) SetComplexArg(arg ComplexArg) {
-	b, err := json.Marshal(struct {
-		C ComplexArg `json:"alfredworkflow"`
-	}{C: arg})
-	if err == nil {
-		i.Arg = string(b)
-	}
+	i.Arg = arg.string()
 }
 
 // Item is an AlfredItem
@@ -94,19 +96,16 @@ type ModElements struct {
 	Cmd *ModContent `json:"cmd,omitempty"`
 }
 
-// NewModElement returns an initialized ModContent to set to Alt or Cmd modifier of the Item
-func NewModElement(arg string, subtitle string) *ModContent {
-	m := new(ModContent)
-	m.Arg = arg
-	m.Subtitle = subtitle
-	return m
-}
-
 // ModContent holds all informations about a modifier of an Item
 type ModContent struct {
 	Valid    bool   `json:"valid,omitempty"`
 	Arg      string `json:"arg,omitempty"`
 	Subtitle string `json:"subtitle,omitempty"`
+}
+
+// SetComplexArg sets the argument of the item to a more complex one that could contain variables as well
+func (m *ModContent) SetComplexArg(arg ComplexArg) {
+	m.Arg = arg.string()
 }
 
 // IconType describes the two possible values for the Type of an icon
