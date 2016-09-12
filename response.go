@@ -6,16 +6,21 @@ import (
 	"os"
 )
 
-// Argument just wrappes the call to os.Args for better readability
-func Argument() string {
-	return os.Args[1]
+// Arguments just wrappes the call to os.Args for better readability
+func Arguments() []string {
+	return os.Args[1:]
 }
 
-// NormalizedArgument re-normalizes the user argument provided via Alfred.
+// NormalizedArguments re-normalizes the user arguments provided via Alfred.
 // This isn't necessary for every workflow, specifically only when you're working with special characters.
 // For more info on this topic, please refer to this thread: http://www.alfredforum.com/topic/2015-encoding-issue/
-func NormalizedArgument() (string, error) {
-	return Normalize(Argument())
+func NormalizedArguments() (normalizedArgs []string, err error) {
+	for _, e := range Arguments() {
+		var normalizedElement string
+		normalizedElement, err = Normalize(e)
+		normalizedArgs = append(normalizedArgs, normalizedElement)
+	}
+	return
 }
 
 // Response is the top level domain object.
