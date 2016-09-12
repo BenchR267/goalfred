@@ -1,4 +1,9 @@
 language: go
 
+before_install:
+  - rvm install 2.0.0
+  - gem install danger
+  - danger --verbose
+
 go:
   - tip
