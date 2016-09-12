@@ -18,6 +18,9 @@ func NormalizedArguments() (normalizedArgs []string, err error) {
 	for _, e := range Arguments() {
 		var normalizedElement string
 		normalizedElement, err = Normalize(e)
+		if err != nil {
+			return
+		}
 		normalizedArgs = append(normalizedArgs, normalizedElement)
 	}
 	return
