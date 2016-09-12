@@ -8,14 +8,16 @@ type IconType string
 // By using "type": "fileicon", Alfred will get the icon for the specified path.
 // Finally, by using "type": "filetype", you can get the icon of a specific file, for example "path": "public.png"
 
-// NoIconType makes Alfred load the file path itself
-var NoIconType IconType
+const (
+	// NoIconType makes Alfred load the file path itself
+	NoIconType IconType = ""
 
-// FileIconType makes Alfred get the icon for the specified path
-var FileIconType IconType = "fileicon"
+	// FileIconType makes Alfred get the icon for the specified path
+	FileIconType IconType = "fileicon"
 
-// FileTypeIconType makes Alfed get the icon of a specific file
-var FileTypeIconType IconType = "filetype"
+	// FileTypeIconType makes Alfed get the icon of a specific file
+	FileTypeIconType IconType = "filetype"
+)
 
 // Icon holds all information about an item's icon
 type Icon struct {
