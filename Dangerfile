@@ -14,5 +14,5 @@ fail('fit left in tests') if `grep -r fit specs/`.length > 1
 
 # Added changelog entry?
 if !git.modified_files.include?('CHANGELOG.md') && !declared_trivial
-  fail("Please include a CHANGELOG entry. \nYou can find it at [CHANGELOG.md](https://github.com/orta/ARAnalytics/blob/master/CHANGELOG.md).")
+  fail("Please include a CHANGELOG entry. \nYou can find it at [CHANGELOG.md](https://github.com/BenchR267/goalfred/blob/master/CHANGELOG.md).")
 end
