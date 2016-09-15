@@ -42,7 +42,7 @@ func main() {
 			Subtitle: "Open Google!",
   }
 
-	goalfred.AddItem(item)
+	goalfred.Add(item)
 }
 ```
 
@@ -77,7 +77,7 @@ func main() {
 		Link2: "https://www.google.de/search?q=hello+world",
 	}
 
-	goalfred.AddItem(link)
+	goalfred.Add(link)
 }
 ```
 

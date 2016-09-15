@@ -39,8 +39,8 @@ func jsonFromItems(items []Item) string {
 
 var items = []Item{}
 
-// AddItem adds the item to be ready to print
-func AddItem(item AlfredItem) {
+// Add adds the item to be ready to print
+func Add(item AlfredItem) {
 	items = append(items, item.Item())
 }
 

@@ -62,10 +62,10 @@ func TestArguments(t *testing.T) {
 	}
 }
 
-func TestAddItem(t *testing.T) {
+func TestAdd(t *testing.T) {
 	items = []Item{}
 	i := Item{}
-	AddItem(i)
+	Add(i)
 	if len(items) != 1 {
 		t.Error("items should be length 1 after adding one element.")
 	}
