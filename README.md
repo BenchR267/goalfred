@@ -30,6 +30,8 @@ Using Item:
 ```go
 func main() {
 
+	defer goalfred.Print()
+
 	item := goalfred.Item {
 			Title: "aTitle",
 			Subtitle: "aSubtitle",
@@ -40,7 +42,7 @@ func main() {
 			Subtitle: "Open Google!",
   }
 
-	goalfred.Output(item)
+	goalfred.AddItem(item)
 }
 ```
 
@@ -66,13 +68,16 @@ func (l Link) Item() *goalfred.Item {
 }
 
 func main() {
+
+	defer goalfred.Print()
+
 	link := Link{
 		Name: "Google",
 		Link1: "https://www.google.com",
 		Link2: "https://www.google.de/search?q=hello+world",
 	}
 
-	goalfred.Ouput(link)
+	goalfred.AddItem(link)
 }
 ```
 

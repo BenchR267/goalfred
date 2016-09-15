@@ -1,6 +1,9 @@
 package goalfred
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 type responseTestPair struct {
 	response interface{}
@@ -25,7 +28,7 @@ var responseTests = []responseTestPair{
 
 func TestJsonFromItems(t *testing.T) {
 	for _, test := range responseTests {
-		actualJSON := jsonFromItems(test.response.([]Item)...)
+		actualJSON := jsonFromItems(test.response.([]Item))
 		if test.json != string(actualJSON) {
 			t.Error("Expected", test.json, "got", string(actualJSON))
 		}
@@ -46,25 +49,30 @@ func (l link) Item() *Item {
 	}
 }
 
-func TestItemsFromAlfredItems(t *testing.T) {
-	emptyItems := itemsFromAlfredItems([]AlfredItem{})
-	if len(emptyItems) != 0 {
-		t.Error("Expected length of 0, got", len(emptyItems))
+func TestArguments(t *testing.T) {
+	args := Arguments()
+	if len(args) != len(os.Args[1:]) {
+		t.Errorf("Arguments length is not correct. Expected %v, got %v.", args, os.Args[1:])
 	}
 
-	exampleLink := link{
-		title:    "title",
-		subtitle: "subtitle",
-		arg:      "arg",
+	for i, e := range args {
+		if os.Args[i+1] != e {
+			t.Errorf("Argument at index %v is not correct. Expected %v, got %v.", i, os.Args[i], e)
+		}
 	}
-	convertedArray := itemsFromAlfredItems([]AlfredItem{exampleLink})
-	if len(convertedArray) != 1 {
-		t.Error("Expected length of 1, got", len(convertedArray))
-	}
-	if convertedArray[0] != *exampleLink.Item() {
-		t.Errorf("Converted %v to Item. Expected %v, got %v.", exampleLink, *exampleLink.Item(), convertedArray[0])
+}
+
+func TestAddItem(t *testing.T) {
+	items = []Item{}
+	i := Item{}
+	AddItem(i)
+	if len(items) != 1 {
+		t.Error("items should be length 1 after adding one element.")
 	}
 
+	if items[0] != i {
+		t.Errorf("item was not correctly added. Expected first item to be %v, got %v.", i, items[0])
+	}
 }
 
 // TODO: Not tested yet: Arguments(), NormalizedArguments(), Print()

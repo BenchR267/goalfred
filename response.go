@@ -27,7 +27,7 @@ func NormalizedArguments() (normalizedArgs []string, err error) {
 	return
 }
 
-func jsonFromItems(items ...Item) string {
+func jsonFromItems(items []Item) string {
 	res := struct {
 		Items []Item `json:"items"`
 	}{
@@ -37,20 +37,14 @@ func jsonFromItems(items ...Item) string {
 	return string(bytes)
 }
 
-func itemsFromAlfredItems(items []AlfredItem) []Item {
-	var i []Item
-	for _, item := range items {
-		i = append(i, *item.Item())
-	}
-	return i
+var items = []Item{}
+
+// AddItem adds the item to be ready to print
+func AddItem(item AlfredItem) {
+	items = append(items, item.Item())
 }
 
-// Output prints the given items to stdout
-func Output(items ...AlfredItem) {
-	OutputItems(itemsFromAlfredItems(items)...)
-}
-
-// OutputItems prints the given items to stdout
-func OutputItems(items ...Item) {
-	fmt.Println(jsonFromItems(items...))
+// Print prints out the saved items
+func Print() {
+	fmt.Printf("%s", jsonFromItems(items))
 }
