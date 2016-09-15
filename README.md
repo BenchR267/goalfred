@@ -29,7 +29,6 @@ You can then either use the given Item struct to add elements to the output or p
 Using Item:
 ```go
 func main() {
-	res := goalfred.NewResponse()
 
 	item := goalfred.Item {
 			Title: "aTitle",
@@ -41,9 +40,7 @@ func main() {
 			Subtitle: "Open Google!",
   }
 
-	res.AddItem(item)
-
-	res.Print()
+	goalfred.Output(item)
 }
 ```
 
@@ -69,23 +66,14 @@ func (l Link) Item() *goalfred.Item {
 }
 
 func main() {
-	res := goalfred.NewResponse()
-
 	link := Link{
 		Name: "Google",
 		Link1: "https://www.google.com",
 		Link2: "https://www.google.de/search?q=hello+world",
 	}
 
-	res.AddItem(link)
-
-	res.Print()
+	goalfred.Ouput(link)
 }
-```
-
-At the end you have to call the Print() function on the Response instance to print the elements to stdout:
-```go
-res.Print()
 ```
 
 # Customization
