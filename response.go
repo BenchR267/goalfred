@@ -27,30 +27,26 @@ func NormalizedArguments() (normalizedArgs []string, err error) {
 	return
 }
 
-// Response is the top level domain object.
-// Create a new instance by calling NewResponse()
-// Add items by calling AddItem on the response object
-type Response struct {
-	Items []Item `json:"items"`
+func jsonFromItems(items ...Item) string {
+	res := struct {
+		Items []Item `json:"items"`
+	}{
+		Items: items,
+	}
+	bytes, _ := json.Marshal(res)
+	return string(bytes)
 }
 
-// NewResponse initializes a new instance of Response
-func NewResponse() *Response {
-	r := new(Response)
-	r.Items = []Item{}
-	return r
+func itemsFromAlfredItems(items []AlfredItem) []Item {
+	var i []Item
+	for _, item := range items {
+		i = append(i, *item.Item())
+	}
+	return i
 }
 
-// Print should be called last to output the result of the workflow to stdout.
-func (r *Response) Print() {
-	bytes, _ := json.Marshal(r)
-	fmt.Println(string(bytes))
-}
-
-// AddItem adds a new Item to the response.
-// The order in Alfred will be in the order how you add them.
-func (r *Response) AddItem(item AlfredItem) *Response {
-	i := item.Item()
-	r.Items = append(r.Items, *i)
-	return r
+// Output prints the given items to stdout
+func Output(items ...AlfredItem) {
+	alfredItems := itemsFromAlfredItems(items)
+	fmt.Println(jsonFromItems(alfredItems...))
 }
