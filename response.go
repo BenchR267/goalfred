@@ -47,6 +47,10 @@ func itemsFromAlfredItems(items []AlfredItem) []Item {
 
 // Output prints the given items to stdout
 func Output(items ...AlfredItem) {
-	alfredItems := itemsFromAlfredItems(items)
-	fmt.Println(jsonFromItems(alfredItems...))
+	OutputItems(itemsFromAlfredItems(items)...)
+}
+
+// OutputItems prints the given items to stdout
+func OutputItems(items ...Item) {
+	fmt.Println(jsonFromItems(items...))
 }
