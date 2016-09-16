@@ -54,7 +54,7 @@ type Link struct {
 	Link2 string
 }
 
-func (l Link) Item() *goalfred.Item {
+func (l Link) Item() goalfred.Item {
 	item := goalfred.Item {
 			Title: l.Name,
 			Arg: l.Link1,
@@ -64,7 +64,7 @@ func (l Link) Item() *goalfred.Item {
 			Arg: l.Link2,
 			Subtitle: "Something special!",
   }
-	return &item
+	return item
 }
 
 func main() {
