@@ -2,7 +2,7 @@ package goalfred
 
 // AlfredItem defines that a struct is convertible to an Item
 type AlfredItem interface {
-	Item() *Item
+	Item() Item
 }
 
 // ItemType describes the type of an Item
@@ -35,8 +35,8 @@ type Item struct {
 }
 
 // Item is an AlfredItem
-func (i Item) Item() *Item {
-	return &i
+func (i Item) Item() Item {
+	return i
 }
 
 // ModElements is a collection of the different modifiers for the item
