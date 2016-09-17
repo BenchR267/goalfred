@@ -2,7 +2,7 @@
 
 goalfred is a helper package to create workflows for Alfredapp.
 
-[![GoDoc](https://godoc.org/github.com/BenchR267/goalfred?status.svg)](https://godoc.org/github.com/BenchR267/goalfred)  [![Build Status](https://travis-ci.org/BenchR267/goalfred.svg?branch=master)](https://travis-ci.org/BenchR267/goalfred) [![Coverage Status](https://coveralls.io/repos/github/BenchR267/goalfred/badge.svg?branch=master)](https://coveralls.io/github/BenchR267/goalfred?branch=master)
+[![GoDoc](https://godoc.org/github.com/BenchR267/goalfred?status.svg)](https://godoc.org/github.com/BenchR267/goalfred)  [![Build Status](https://travis-ci.org/BenchR267/goalfred.svg?branch=master)](https://travis-ci.org/BenchR267/goalfred) [![Coverage Status](https://coveralls.io/repos/github/BenchR267/goalfred/badge.svg)](https://coveralls.io/github/BenchR267/goalfred)
 
 ## Get ##
 
