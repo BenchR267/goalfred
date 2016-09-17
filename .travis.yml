@@ -4,10 +4,14 @@ os:
 language: go
 
 before_install:
+  - go get github.com/mattn/goveralls
   - go get -u github.com/golang/lint/golint
   - rvm install 2.0.0
   - gem install danger
   - danger --verbose
+
+script:
+  - $HOME/gopath/bin/goveralls -service=travis-ci
 
 go:
   - tip
