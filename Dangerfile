@@ -6,7 +6,7 @@ declared_trivial = github.pr_title.include? '#trivial'
 warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
 
 # Warn when there is a big PR
-warn('Big PR') if git.lines_of_code > 500
+warn('Big PR (cc @kiliankoe @BenchR267)') if git.lines_of_code > 500
 
 lint_output = `golint *.go`
 if lint_output.length > 0

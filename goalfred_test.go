@@ -1,9 +1,6 @@
 package goalfred
 
-import (
-	"os"
-	"testing"
-)
+import "testing"
 
 type responseTestPair struct {
 	response interface{}
@@ -46,19 +43,6 @@ func (l link) Item() *Item {
 		Title:    l.title,
 		Subtitle: l.subtitle,
 		Arg:      l.arg,
-	}
-}
-
-func TestArguments(t *testing.T) {
-	args := Arguments()
-	if len(args) != len(os.Args[1:]) {
-		t.Errorf("Arguments length is not correct. Expected %v, got %v.", args, os.Args[1:])
-	}
-
-	for i, e := range args {
-		if os.Args[i+1] != e {
-			t.Errorf("Argument at index %v is not correct. Expected %v, got %v.", i, os.Args[i], e)
-		}
 	}
 }
 

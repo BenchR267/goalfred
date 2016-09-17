@@ -1,10 +1,29 @@
 package goalfred
 
 import (
-	"encoding/json"
-	"fmt"
+	"io/ioutil"
 	"os"
+	"os/exec"
 )
+
+// Normalize fixes problems with string encoding regarding the usage of special characters in Alfred.
+// For more info on this topic, please refer to this thread: http://www.alfredforum.com/topic/2015-encoding-issue/
+func Normalize(input string) (output string, err error) {
+	iconv := exec.Command("iconv", "-f", "UTF8-MAC")
+	iconvIn, err := iconv.StdinPipe()
+	iconvOut, err := iconv.StdoutPipe()
+
+	iconv.Start()
+	iconvIn.Write([]byte(input))
+	iconvIn.Close()
+
+	iconvOutput, err := ioutil.ReadAll(iconvOut)
+	iconv.Wait()
+
+	output = string(iconvOutput)
+
+	return
+}
 
 // Arguments just wrappes the call to os.Args for better readability
 func Arguments() []string {
@@ -25,26 +44,4 @@ func NormalizedArguments() (normalizedArgs []string, err error) {
 		normalizedArgs = append(normalizedArgs, normalizedElement)
 	}
 	return
-}
-
-func jsonFromItems(items []Item) string {
-	res := struct {
-		Items []Item `json:"items"`
-	}{
-		Items: items,
-	}
-	bytes, _ := json.Marshal(res)
-	return string(bytes)
-}
-
-var items = []Item{}
-
-// Add adds the item to be ready to print
-func Add(item AlfredItem) {
-	items = append(items, item.Item())
-}
-
-// Print prints out the saved items
-func Print() {
-	fmt.Printf("%s", jsonFromItems(items))
 }
