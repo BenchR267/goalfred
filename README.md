@@ -16,12 +16,6 @@ go get -u github.com/BenchR267/goalfred
 import "github.com/BenchR267/goalfred"
 ```
 
-Create a new Response:
-
-```go
-res := NewResponse()
-```
-
 Construct your data like you want it to appear in the script filter output.
 You can then either use the given Item struct to add elements to the output or provide your custom types:
 
