@@ -31,7 +31,7 @@ type Item struct {
 	Autocomplete string      `json:"autocomplete,omitempty"`
 	Type         ItemType    `json:"type,omitempty"`
 	Mod          ModElements `json:"mods,omitempty"`
-	Quicklook    string      `json:"quicklook,omitempty"`
+	Quicklook    string      `json:"quicklookurl,omitempty"`
 }
 
 // Item is an AlfredItem
