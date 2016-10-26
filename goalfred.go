@@ -2,8 +2,12 @@ package goalfred
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 )
+
+func init() {
+	log.SetFlags(0) // don't output date and time
+}
 
 func jsonFromItems(items []Item) string {
 	res := struct {
@@ -24,5 +28,5 @@ func Add(item AlfredItem) {
 
 // Print prints out the saved items
 func Print() {
-	fmt.Println(jsonFromItems(items))
+	log.Println(jsonFromItems(items))
 }
