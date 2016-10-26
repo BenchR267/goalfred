@@ -14,7 +14,7 @@ func captureOutput(f func()) string {
 	log.SetFlags(0)
 	log.SetOutput(&buf)
 	f()
-	log.SetOutput(os.Stdin)
+	log.SetOutput(os.Stdout)
 	return strings.TrimSpace(buf.String())
 }
 

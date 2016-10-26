@@ -1,5 +1,6 @@
 # master
 
+- Hotfix (changed stdin to stdout -.-) (@BenchR267)
 - Added test for Print (@BenchR267)
 - Add Log and IsDebug functions (@kiliankoe)
 - Fix QuickLook (@kiliankoe)
