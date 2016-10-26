@@ -1,7 +1,7 @@
 package goalfred
 
 import (
-	"fmt"
+	"log"
 	"os"
 )
 
@@ -15,6 +15,6 @@ func IsDebug() bool {
 // to interfere with the normal output.
 func Log(text string) {
 	if IsDebug() {
-		fmt.Println(text)
+		log.Println(text)
 	}
 }
