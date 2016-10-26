@@ -1,6 +1,22 @@
 package goalfred
 
-import "testing"
+import (
+	"bytes"
+	"log"
+	"os"
+	"strings"
+	"testing"
+)
+
+// thanks to http://stackoverflow.com/a/26806093
+func captureOutput(f func()) string {
+	var buf bytes.Buffer
+	log.SetFlags(0)
+	log.SetOutput(&buf)
+	f()
+	log.SetOutput(os.Stdin)
+	return strings.TrimSpace(buf.String())
+}
 
 type responseTestPair struct {
 	response interface{}
@@ -59,4 +75,28 @@ func TestAdd(t *testing.T) {
 	}
 }
 
-// TODO: Not tested yet: Arguments(), NormalizedArguments(), Print()
+func TestPrint(t *testing.T) {
+	items = []Item{}
+	output := captureOutput(func() {
+		Print()
+	})
+
+	if output != "{\"items\":[]}" {
+		t.Error("Expected output with empty items. Got: ", output)
+	}
+
+	i := Item{
+		Title:    "a title",
+		Subtitle: "a subtitle",
+	}
+	Add(i)
+
+	output = captureOutput(func() {
+		Print()
+	})
+	if output != "{\"items\":[{\"title\":\"a title\",\"subtitle\":\"a subtitle\",\"mods\":{}}]}" {
+		t.Error("Expected output with empty items. Got: ", output)
+	}
+}
+
+// TODO: Not tested yet: Arguments(), NormalizedArguments()
