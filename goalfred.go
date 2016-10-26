@@ -3,10 +3,12 @@ package goalfred
 import (
 	"encoding/json"
 	"log"
+	"os"
 )
 
 func init() {
 	log.SetFlags(0) // don't output date and time
+	log.SetOutput(os.Stdout)
 }
 
 func jsonFromItems(items []Item) string {
