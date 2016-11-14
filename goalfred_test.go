@@ -109,6 +109,14 @@ func TestRerun(t *testing.T) {
 	if output != "{\"rerun\":2,\"items\":[]}" {
 		t.Error("Expected output with empty items and rerun set to 2. Got: ", output)
 	}
+
+	Rerun(0)
+	output = captureOutput(func() {
+		Print()
+	})
+	if output != "{\"items\":[]}" {
+		t.Error("Expected output with empty items and no rerun. Got: ", output)
+	}
 }
 
 // TODO: Not tested yet: Arguments(), NormalizedArguments()
