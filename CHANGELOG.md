@@ -1,5 +1,6 @@
 # master
 
+- Variables could be of any type (@BenchR267)
 - Added field for workflow wide variables (@BenchR267)
 - Added rerun field (@BenchR267)
 - Hotfix (changed stdin to stdout -.-) (@BenchR267)

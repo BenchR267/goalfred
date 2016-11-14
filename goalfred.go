@@ -13,9 +13,9 @@ func init() {
 
 func jsonFromItems(items []Item) string {
 	res := struct {
-		Rerun     int               `json:"rerun,omitempty"`
-		Variables map[string]string `json:"variables,omitempty"`
-		Items     []Item            `json:"items"`
+		Rerun     int                    `json:"rerun,omitempty"`
+		Variables map[string]interface{} `json:"variables,omitempty"`
+		Items     []Item                 `json:"items"`
 	}{
 		Rerun: rerun,
 		Items: items,
@@ -28,7 +28,7 @@ func jsonFromItems(items []Item) string {
 }
 
 var rerun int
-var variables = make(map[string]string)
+var variables = make(map[string]interface{})
 var items = []Item{}
 
 // Add adds the item to be ready to print
@@ -42,7 +42,7 @@ func Rerun(seconds int) {
 }
 
 // SetVariable sets the value of a workflow wide variable which is passed as env var to the workflow
-func SetVariable(key, value string) {
+func SetVariable(key string, value interface{}) {
 	variables[key] = value
 }
 
