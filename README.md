@@ -99,6 +99,27 @@ item.SetComplexArg(goalfred.ComplexArg{
 
 As you can already see in the code, you can specify variables as well. You can use then the variables value by writing {var:VARIABLENAME} in an Alfred action. Very handy!
 
+# Workflow variables
+
+Alfred added a new functionality in 3.2 which makes it possible to add variables to your script filter. To do this just set the variables via your Go script filter:
+
+```Go
+SetVariable("aKey1", 5)
+SetVariable("aKey2", "aValue")
+```
+
+The variables are then exposed as environment variables to your following scripts.
+
+# Rerun
+
+Sometimes you want to rerun your workflow after a given amount of time. Set this value with 
+
+```Go
+Rerun(2)
+```
+
+before printing your output to Alfred. This will then rerun the workflow after the given amount of seconds.
+
 ## License ##
 
 This library is distributed under the MIT-style license found in the [LICENSE](./LICENSE)
