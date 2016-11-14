@@ -13,17 +13,22 @@ func init() {
 
 func jsonFromItems(items []Item) string {
 	res := struct {
-		Rerun int    `json:"rerun,omitempty"`
-		Items []Item `json:"items"`
+		Rerun     int               `json:"rerun,omitempty"`
+		Variables map[string]string `json:"variables,omitempty"`
+		Items     []Item            `json:"items"`
 	}{
 		Rerun: rerun,
 		Items: items,
+	}
+	if len(variables) > 0 {
+		res.Variables = variables
 	}
 	bytes, _ := json.Marshal(res)
 	return string(bytes)
 }
 
 var rerun int
+var variables = make(map[string]string)
 var items = []Item{}
 
 // Add adds the item to be ready to print
@@ -34,6 +39,11 @@ func Add(item AlfredItem) {
 // Rerun sets the interval after how many seconds the workflow should run again
 func Rerun(seconds int) {
 	rerun = seconds
+}
+
+// SetVariable sets the value of a workflow wide variable which is passed as env var to the workflow
+func SetVariable(key, value string) {
+	variables[key] = value
 }
 
 // Print prints out the saved items

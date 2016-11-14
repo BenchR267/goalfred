@@ -119,4 +119,24 @@ func TestRerun(t *testing.T) {
 	}
 }
 
+func TestVariable(t *testing.T) {
+	items = []Item{}
+	SetVariable("aKey", "aValue")
+	output := captureOutput(func() {
+		Print()
+	})
+
+	if output != "{\"variables\":{\"aKey\":\"aValue\"},\"items\":[]}" {
+		t.Error("Expected output with empty items and the set variable. Got: ", output)
+	}
+
+	variables = make(map[string]string)
+	output = captureOutput(func() {
+		Print()
+	})
+	if output != "{\"items\":[]}" {
+		t.Error("Expected output with empty items and no variables set. Got: ", output)
+	}
+}
+
 // TODO: Not tested yet: Arguments(), NormalizedArguments()
