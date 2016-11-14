@@ -130,12 +130,21 @@ func TestVariable(t *testing.T) {
 		t.Error("Expected output with empty items and the set variable. Got: ", output)
 	}
 
-	variables = make(map[string]string)
+	variables = make(map[string]interface{})
 	output = captureOutput(func() {
 		Print()
 	})
 	if output != "{\"items\":[]}" {
 		t.Error("Expected output with empty items and no variables set. Got: ", output)
+	}
+
+	SetVariable("aKey", 5)
+	output = captureOutput(func() {
+		Print()
+	})
+
+	if output != "{\"variables\":{\"aKey\":5},\"items\":[]}" {
+		t.Error("Expected output with empty items and the set variable as number. Got: ", output)
 	}
 }
 
