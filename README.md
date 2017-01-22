@@ -123,15 +123,21 @@ before printing your output to Alfred. This will then rerun the workflow after t
 ## CLI Tool ##
 
 WARNING: Still in Alpha status!
+
 goalfred also comes with a great cli tool to automate releases of your workflow. To install the tool, type in your terminal
+
 ```Bash
 go get github.com/BenchR267/goalfred/...
 ```
+
 and run it by calling
+
 ```Bash
 $GOPATH/bin/goalfred release -v 1.0.0 DIRECTORY_PATH
 ```
+
 with DIRECTORY_PATH replaced by the directory your files are located. Possible options are also `-i` and `-g`. 
+
 `-i` or `--infoplist` stands for bumping the version to the argument you specify at the `-v` option.
 `-g` or `--git` creates also a git tag and pushes that to your origin git remote.
 
