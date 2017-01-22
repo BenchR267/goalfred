@@ -6,6 +6,6 @@ import (
 
 func main() {
 	parser := flags.NewParser(nil, flags.Default)
-	parser.AddCommand("release", "Create a new release", "Create a new release from the latest commit.", &release)
+	parser.AddCommand("release", "Create a new release", "Create a new release from the latest commit.", &Release)
 	parser.Parse()
 }

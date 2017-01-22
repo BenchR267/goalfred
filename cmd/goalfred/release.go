@@ -14,16 +14,16 @@ var (
 	ErrPlistBuddyNotAvailable = errors.New("Couldn't find PlistBuddy in /usr/libexec/PlistBuddy, please make sure the program is there and executable!")
 )
 
-type releaseOptions struct {
+type ReleaseCommand struct {
 	Version string `short:"v" long:"version" description:"The version string for the release." required:"true"`
 
 	SetGitTag       bool `short:"g" long:"git" description:"Add a git version tag."`
 	SetInfoPlistTag bool `short:"i" long:"infoplist" description:"Add the version in the info.plist"`
 }
 
-var release releaseOptions
+var Release ReleaseCommand
 
-func (r *releaseOptions) Execute(args []string) error {
+func (r *ReleaseCommand) Execute(args []string) error {
 
 	var path string
 	if len(args) > 0 {
@@ -61,11 +61,11 @@ func (r *releaseOptions) Execute(args []string) error {
 }
 
 func createTag() (string, error) {
-	if release.Version == "" {
+	if Release.Version == "" {
 		return "", ErrInvalidTag
 	}
 
-	c := exec.Command("git", "tag", release.Version)
+	c := exec.Command("git", "tag", Release.Version)
 
 	o, err := c.CombinedOutput()
 	return string(o), err
