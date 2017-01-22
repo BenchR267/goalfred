@@ -55,6 +55,8 @@ func (r *releaseOptions) Execute(args []string) error {
 		}
 	}
 
+	createReleaseZip(path, r.Version)
+
 	return nil
 }
 
@@ -107,4 +109,11 @@ func setInfoPlistVersion(path, version string) error {
 		return errors.New(string(o))
 	}
 	return err
+}
+
+func createReleaseZip(path, version string) {
+	exec.Command("mkdir", fmt.Sprintf("%s/releases", path)).Run()
+
+	cmd := fmt.Sprintf("zip -r %s/releases/%s.alfredworkflow %s/[^releases]*", path, version, path)
+	exec.Command("bash", "-c", cmd).CombinedOutput()
 }
