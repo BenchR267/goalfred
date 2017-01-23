@@ -4,12 +4,14 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 	"strings"
 )
 
 const (
 	defaultVersion = "1.0.0"
+	defaultKeyword = "keyword"
 
 	Tools        CategoryType = "Tools"
 	Internet     CategoryType = "Internet"
@@ -33,6 +35,7 @@ type Workflow struct {
 	Category    CategoryType
 	Description string
 	Website     string
+	Keyword     string
 }
 
 func (i *InitCommand) Execute(args []string) error {
@@ -65,6 +68,11 @@ func (i *InitCommand) Execute(args []string) error {
 	}
 	workflow.Description = readString("How would you shortly describe your workflow? ")
 	workflow.Website = readString("If you have any, what is the website of your workflow? ")
+	workflow.Keyword = readString("What should be the keyword to trigger the workflow? (keyword)")
+
+	if workflow.Keyword == "" {
+		workflow.Keyword = defaultKeyword
+	}
 
 	err = createInfoPlist(workflow)
 	if err != nil {
@@ -75,6 +83,8 @@ func (i *InitCommand) Execute(args []string) error {
 	if err != nil {
 		return err
 	}
+
+	compileMainFile()
 
 	fmt.Println("\nFinished initializing. Start by editing the main.go file! 🚀")
 
@@ -136,8 +146,9 @@ func injectWorkflowInInfoPlist(workflow Workflow) string {
 	content = strings.Replace(content, ":category:", string(workflow.Category), 1)
 	content = strings.Replace(content, ":author:", workflow.Author, 1)
 	content = strings.Replace(content, ":description:", workflow.Description, 1)
-	content = strings.Replace(content, ":name:", workflow.Name, 1)
+	content = strings.Replace(content, ":name:", workflow.Name, 2)
 	content = strings.Replace(content, ":website:", workflow.Website, 1)
+	content = strings.Replace(content, ":keyword:", workflow.Keyword, 1)
 
 	return content
 }
@@ -151,4 +162,9 @@ func createMainFile() error {
 	file.Write([]byte(mainFileTemplate))
 
 	return nil
+}
+
+func compileMainFile() {
+	o, err := exec.Command("bash", "-c", "go build main.go").CombinedOutput()
+	fmt.Println(string(o), err)
 }
