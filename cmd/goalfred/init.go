@@ -5,10 +5,15 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 )
 
 const (
 	defaultVersion = "1.0.0"
+
+	Tools        CategoryType = "Tools"
+	Internet     CategoryType = "Internet"
+	Productivity CategoryType = "Productivity"
 )
 
 type InitCommand struct {
@@ -17,10 +22,17 @@ type InitCommand struct {
 
 var Init InitCommand
 
+type CategoryType string
+
 type Workflow struct {
-	Name    string
-	Path    string
-	Version string
+	Author      string
+	Name        string
+	Path        string
+	BundleId    string
+	Version     string
+	Category    CategoryType
+	Description string
+	Website     string
 }
 
 func (i *InitCommand) Execute(args []string) error {
@@ -40,13 +52,31 @@ func (i *InitCommand) Execute(args []string) error {
 	}
 
 	workflow.Name = readString("What should be the name of the Workflow? ")
+	workflow.Author = readString("What is the name of the author? ")
+	workflow.BundleId = readString("What is the bundle identifier of the workflow? ")
+	read := readString("Please select a category \n(0 - Tools 1 - Internet 2 - Productivity) ")
+	switch read {
+	case "1":
+		workflow.Category = Internet
+	case "2":
+		workflow.Category = Productivity
+	default:
+		workflow.Category = Tools
+	}
+	workflow.Description = readString("How would you shortly describe your workflow? ")
+	workflow.Website = readString("If you have any, what is the website of your workflow? ")
 
 	err = createInfoPlist(workflow)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("Initialize:", workflow)
+	err = createMainFile()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("\nFinished initializing. Start by editing the main.go file! 🚀")
 
 	return nil
 }
@@ -94,7 +124,31 @@ func createInfoPlist(workflow Workflow) error {
 		return err
 	}
 
-	file.Write([]byte(infoPlist))
+	file.Write([]byte(injectWorkflowInInfoPlist(workflow)))
+
+	return nil
+}
+
+func injectWorkflowInInfoPlist(workflow Workflow) string {
+	content := infoPlistTemplate
+
+	content = strings.Replace(content, ":bundle:", workflow.BundleId, 1)
+	content = strings.Replace(content, ":category:", string(workflow.Category), 1)
+	content = strings.Replace(content, ":author:", workflow.Author, 1)
+	content = strings.Replace(content, ":description:", workflow.Description, 1)
+	content = strings.Replace(content, ":name:", workflow.Name, 1)
+	content = strings.Replace(content, ":website:", workflow.Website, 1)
+
+	return content
+}
+
+func createMainFile() error {
+	file, err := os.Create("main.go")
+	if err != nil {
+		return err
+	}
+
+	file.Write([]byte(mainFileTemplate))
 
 	return nil
 }
