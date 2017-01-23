@@ -165,6 +165,5 @@ func createMainFile() error {
 }
 
 func compileMainFile() {
-	o, err := exec.Command("bash", "-c", "go build main.go").CombinedOutput()
-	fmt.Println(string(o), err)
+	exec.Command("bash", "-c", "go build main.go").Run()
 }
