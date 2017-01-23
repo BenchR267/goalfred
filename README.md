@@ -30,7 +30,7 @@ func main() {
 			Subtitle: "aSubtitle",
 			Arg: "https://www.example.com",
 	}
-	item.Mod.Alt = goalfred.ModContent {
+	item.Mod.Alt = &goalfred.ModContent {
 			Arg: "https://www.google.de",
 			Subtitle: "Open Google!",
   }
@@ -53,7 +53,7 @@ func (l Link) Item() goalfred.Item {
 			Arg: l.Link1,
 	}
 
-	item.Mod.Cmd = goalfred.ModContent {
+	item.Mod.Cmd = &goalfred.ModContent {
 			Arg: l.Link2,
 			Subtitle: "Something special!",
   }
