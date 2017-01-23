@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 )
 
@@ -29,7 +30,11 @@ func (r *ReleaseCommand) Execute(args []string) error {
 	if len(args) > 0 {
 		path = args[0]
 	} else {
-		path = "."
+		p, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		path = p
 	}
 
 	if r.SetInfoPlistTag {
