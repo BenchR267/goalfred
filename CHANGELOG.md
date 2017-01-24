@@ -1,5 +1,6 @@
 # master
 
+- Extended CLI tool with init command (@BenchR267)
 - Added first prototype of CLI for release automation (@BenchR267)
 - Variables could be of any type (@BenchR267)
 - Added field for workflow wide variables (@BenchR267)
