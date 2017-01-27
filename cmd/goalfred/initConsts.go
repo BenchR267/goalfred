@@ -102,7 +102,7 @@ func main() {
         }
         goalfred.Add(item)
     }
-≤
+
 }
 `
 )
