@@ -165,5 +165,5 @@ func createMainFile() error {
 }
 
 func compileMainFile() {
-	exec.Command("bash", "-c", "go build main.go").Run()
+	exec.Command("bash", "-c", "go build *.go").Run()
 }
